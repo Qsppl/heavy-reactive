@@ -1,0 +1,7 @@
+{
+    "experimentalTernaries": true,
+    "semi": false,
+    "singleQuote": false,
+    "bracketSameLine": false,
+    "quoteProps": "consistent"
+}

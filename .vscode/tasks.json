@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "compile:watch",
+            "group": "build",
+            "problemMatcher": [
+                "$tsc-watch"
+            ],
+            "label": "TypeScript Compiler",
+            "detail": "TSC watch, compile and validate input files. Print promlems into problem matcher",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "never",
+                "revealProblems": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "reactive-state-library",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Qsppl/Reactive-State-Library#readme",
+  "bugs": {
+    "url": "https://github.com/Qsppl/Reactive-State-Library/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Qsppl/Reactive-State-Library.git"
+  },
+  "license": "MIT",
+  "author": "Tomoko",
+  "main": "feature.reactivity/reactive.module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "npm": "^11.2",
+    "node": "^23.9"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.1",
+    "typescript": "^5.8.2"
+  }
+}
