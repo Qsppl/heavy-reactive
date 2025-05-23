@@ -125,35 +125,200 @@ export function $set<TValue>(...args: ConstructorParameters<typeof $Set<TValue>>
 
 export { $Combination } from "./set/_combination/$combination.class.js"
 
+/**
+ * Creates a `$ComplementViaSet` instance.
+ *
+ * This factory produces a derived reactive set that excludes values from the given `superset`
+ * by projecting items from a `relation` set into the superset using a custom `resolver()` function.
+ *
+ * Each key in the `relation` set is mapped to values that should be excluded from the result.
+ * The final result is `superset − projection`.
+ *
+ * @example
+ * ```ts
+ * const $all = $set({ values: ["a", "b", "c"] })
+ * const $exclude = $set({ values: ["b"] })
+ *
+ * const $visible = $complementViaSet({
+ *   superset: $all,
+ *   relation: $exclude,
+ *   resolver: (all, keys) => [...all].filter(x => keys.has(x)),
+ * })
+ * ```
+ *
+ * @returns A readonly reactive `$Combination<T>` representing the complement set.
+ */
 export function $complementViaSet<TSupersetValue, TRelationValue>(
     ...args: ConstructorParameters<typeof $ComplementViaSet<TSupersetValue, TRelationValue>>
 ): $Combination<TSupersetValue> {
     return new $ComplementViaSet(...args)
 }
 
+/**
+ * Creates a `$ComplementViaVal` instance.
+ *
+ * Produces a derived reactive set that excludes projected values based on a single
+ * reactive relation key stored in a `$Value`. The `resolver()` maps the relation
+ * key to values in the superset that should be excluded.
+ *
+ * The result is `superset − projection(relation)`.
+ *
+ * @example
+ * ```ts
+ * const $all = $set({ values: ["a", "b", "c"] })
+ * const $mode = $value({ value: "b" })
+ *
+ * const $visible = $complementViaVal({
+ *   superset: $all,
+ *   relation: $mode,
+ *   resolver: (all, key) => [...all].filter(x => x === key.value),
+ * })
+ * ```
+ *
+ * @returns A readonly reactive `$Combination<T>` representing the complement set.
+ */
 export function $complementViaVal<TSupersetValue, TRelationValue>(
     ...args: ConstructorParameters<typeof $ComplementViaVal<TSupersetValue, TRelationValue>>
 ): $Combination<TSupersetValue> {
     return new $ComplementViaVal(...args)
 }
 
+/**
+ * Creates a `$SubsetViaSet` instance.
+ *
+ * Produces a derived reactive set that includes values from the given `superset`
+ * based on a set of relation keys. Each key is projected into the superset
+ * using a custom `resolver()` function, and the result is the union of all projections.
+ *
+ * This is commonly used for:
+ * - tag-based filtering,
+ * - parent → children projections,
+ * - resolving references dynamically.
+ *
+ * @example
+ * ```ts
+ * const $all = $set({ values: ["a", "b", "c", "d"] })
+ * const $tags = $set({ values: ["a", "d"] })
+ *
+ * const $selected = $subsetViaSet({
+ *   superset: $all,
+ *   relation: $tags,
+ *   resolver: (all, keys) => [...all].filter(x => keys.has(x)),
+ * })
+ * ```
+ *
+ * @returns A readonly reactive `$Combination<T>` representing the projected subset.
+ */
 export function $subsetViaSet<TSupersetValue, TRelationValue>(
     ...args: ConstructorParameters<typeof $SubsetViaSet<TSupersetValue, TRelationValue>>
 ): $Combination<TSupersetValue> {
     return new $SubsetViaSet(...args)
 }
 
+/**
+ * Creates a `$SubsetViaVal` instance.
+ *
+ * Produces a derived reactive set by projecting a single reactive relation key
+ * into a subset of values from the `superset`. The `resolver()` defines the
+ * projection from the relation key to included superset values.
+ *
+ * The result is replaced (overwrite) when the key changes.
+ *
+ * @example
+ * ```ts
+ * const $all = $set({ values: ["a", "b", "c"] })
+ * const $selectedTag = $value({ value: "b" })
+ *
+ * const $visible = $subsetViaVal({
+ *   superset: $all,
+ *   relation: $selectedTag,
+ *   resolver: (all, key) => [...all].filter(x => x === key.value),
+ * })
+ * ```
+ *
+ * @returns A readonly reactive `$Combination<T>` representing the projected subset.
+ */
 export function $subsetViaVal<TSupersetValue, TRelationValue>(
     ...args: ConstructorParameters<typeof $SubsetViaVal<TSupersetValue, TRelationValue>>
 ): $Combination<TSupersetValue> {
     return new $SubsetViaVal(...args)
 }
 
+/**
+ * Creates a highly customizable reactive derived set from arbitrary dependencies.
+ *
+ * `$deriveSetFromAny<T>()` returns a curried factory function that accepts a configuration
+ * for constructing a `$SetFromAny<T, TDependencies>` instance — a general-purpose reactive
+ * combinator that derives its content from multiple `$Set` and/or `$Value` sources.
+ *
+ * Each source is registered by name, and a corresponding `resolver()` must be provided
+ * to transform changes in that source into incremental or overwrite-level changes in the result set.
+ *
+ * This low-level primitive powers all higher-order derived constructs such as:
+ * - `$SubsetViaSet`
+ * - `$ComplementViaVal`
+ * - `$SetFromSet`
+ *
+ * @template TValue The type of values in the resulting derived set.
+ *
+ * @returns A factory function that creates a `$SetFromAny<T>` with typed dependencies.
+ *
+ * @example
+ * ```ts
+ * const $items = $set(["apple", "banana", "cherry"])
+ * const $hide = $value("a")
+ *
+ * const $filtered = $deriveSetFromAny<string>()({
+ *   label: "filteredItems",
+ *   dependencies: { source: $items, mask: $hide },
+ *   resolvers: {
+ *     source: async ({ mask }, { increment, decrement }) => ({
+ *       increment: new Set([...increment ?? []].filter(i => !i.startsWith(mask?.value ?? ""))),
+ *       decrement,
+ *     }),
+ *     mask: async ({ source }, { increment }) => {
+ *       const excluded = new Set([...source ?? []].filter(i => i.startsWith(increment?.value ?? "")))
+ *       return { overwrite: new Set([...source ?? []].filter(i => !excluded.has(i))) }
+ *     },
+ *   },
+ * })
+ * ```
+ */
 export function $deriveSetFromAny<TValue>() {
     return <TDependencies extends TDependenciesMap>(...args: ConstructorParameters<typeof $SetFromAny<TValue, TDependencies>>): $Combination<TValue> =>
         new $SetFromAny(...args)
 }
 
+/**
+ * Creates a `$SetFromSet` instance.
+ *
+ * Produces a reactive derived set by transforming incremental changes
+ * from a source `$Set<TSource>` into corresponding changes in a target set.
+ *
+ * Unlike projection-based sets, this factory doesn't use relation keys or masking.
+ * Instead, it applies a user-defined `resolver()` function to each incoming delta,
+ * allowing for freeform transformation: filtering, remapping, expanding, etc.
+ *
+ * Useful for:
+ * - mapping IDs to objects,
+ * - type conversions (e.g. `Point → Zone`),
+ * - building enriched views of a changing set.
+ *
+ * @example
+ * ```ts
+ * const $ids = $set({ values: [1, 2, 3] })
+ *
+ * const $objects = $deriveSetFromSet({
+ *   source: $ids,
+ *   resolver: async ({ increment, decrement }) => ({
+ *     increment: new Set((increment ?? []).map(id => ({ id, label: `Item ${id}` }))),
+ *     decrement: new Set((decrement ?? []).map(id => ({ id, label: `Item ${id}` }))),
+ *   }),
+ * })
+ * ```
+ *
+ * @returns A readonly reactive `$Combination<T>` that reflects transformed deltas.
+ */
 export function $deriveSetFromSet<TValue, TSourceValue>(...args: ConstructorParameters<typeof $SetFromSet<TValue, TSourceValue>>): $Combination<TValue> {
     return new $SetFromSet(...args)
 }
