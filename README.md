@@ -1,3 +1,7 @@
+[![npm version](https://img.shields.io/npm/v/heavy-reactive.svg?style=flat&logo=npm&label=heavy-reactive)](https://www.npmjs.com/package/heavy-reactive)
+[![types](https://img.shields.io/npm/types/heavy-reactive?style=flat&logo=typescript&label=)](https://www.typescriptlang.org/)
+[![license](https://img.shields.io/npm/l/heavy-reactive?style=flat)](https://github.com/your-username/heavy-reactive/blob/main/LICENSE)
+
 # Heavy Reactive
 
 Lightweight TypeScript primitives for reactive programming with heavy computations, optimized to handle hundreds of thousands of objects in real-time streams. The library provides explicit control over complex data flows through subscription-based patterns while avoiding magic and overhead. It supports cancellation, lazy evaluation, and efficient set operations at scale without garbage collection pressure. Designed for seamless integration in any architecture, it works without global state or framework dependencies.
