@@ -2,14 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "npm",
-            "script": "compile:watch",
+            "type": "typescript",
+            "tsconfig": "tsconfig.json",
+            "option": "watch",
+            "problemMatcher": ["$tsc-watch"],
             "group": "build",
-            "problemMatcher": [
-                "$tsc-watch"
-            ],
-            "label": "TypeScript Compiler",
-            "detail": "TSC watch, compile and validate input files. Print promlems into problem matcher",
+            "label": "Typescript Compiler",
             "runOptions": {
                 "runOn": "folderOpen"
             },

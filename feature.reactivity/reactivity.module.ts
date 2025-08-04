@@ -36,7 +36,7 @@ export { $Value } from "./value/$value.class.js"
  * @example Reactive counter:
  * ```ts
  * const counter = $value({ value: 0 })
- * counter.onChange.addSignalListener(({ increment }) => {
+ * counter.onChange.subscribe(({ increment }) => {
  *   console.log('New value:', increment?.value)
  * })
  *
@@ -88,7 +88,7 @@ export { $Set } from "./set/$set.class.js"
  * ```ts
  * const $tags = $set({ values: ['a', 'b'] })
  *
- * $tags.onChange.addSignalListener(({ increment, decrement }) => {
+ * $tags.onChange.subscribe(({ increment, decrement }) => {
  *   console.log('Added:', [...(increment ?? [])])
  *   console.log('Removed:', [...(decrement ?? [])])
  * })

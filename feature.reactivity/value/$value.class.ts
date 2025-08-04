@@ -1,8 +1,8 @@
+import { Signal } from "class-signals"
 import { IObservable } from "../_common/observable.interface.js"
 import { IValueChange } from "../_common/value-change.interface.js"
 import { IValueContainer } from "../_common/value-container.interface.js"
-import deepEqual from "/feature.javascript/deep-equal.helper.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
+import equal from "@wry/equality"
 
 /**
  * Options for creating a reactive value container.
@@ -43,7 +43,7 @@ export interface IValueOptions<T> {
  * ```ts
  * const flag = $value(false)
  *
- * flag.onChange.addSignalListener(({ increment, decrement }) => {
+ * flag.onChange.subscribe(({ increment, decrement }) => {
  *   if (increment) console.log(`Flag changed to: ${increment.value}`)
  * })
  *
@@ -102,13 +102,13 @@ export class $Value<TValue> implements IValueContainer<TValue>, IObservable<IVal
      * - `increment`: the new value container (if added or updated)
      * - `decrement`: the previous value container (if removed or updated)
      *
-     * Use `.addSignalListener(...)` to react to changes.
+     * Use `.subscribe(...)` to react to changes.
      *
      * @example
      * ```ts
      * const counter = $value(0)
      *
-     * counter.onChange.addSignalListener(({ increment }) => {
+     * counter.onChange.subscribe(({ increment }) => {
      *   console.log(`Counter updated: ${increment?.value}`)
      * })
      *
@@ -203,7 +203,7 @@ export class $Value<TValue> implements IValueContainer<TValue>, IObservable<IVal
         if (this.#transactionIsOpen) {
             this.#transactionState = { value: next }
         } else {
-            if (deepEqual(this.#value, next)) return
+            if (equal(this.#value, next)) return
 
             const lastState = { value: this.#value }
 
@@ -211,7 +211,7 @@ export class $Value<TValue> implements IValueContainer<TValue>, IObservable<IVal
 
             const nextState = { value: this.#value }
 
-            this.onChange.dispatchSignal({ decrement: lastState, increment: nextState })
+            this.onChange.activate({ decrement: lastState, increment: nextState })
         }
     }
 

@@ -1,9 +1,9 @@
 import { TDependencyValueResolver } from "../types/dependency-value-resolver.type.js"
 import { IValueContainer } from "../../../_common/value-container.interface.js"
 import { $Value } from "../../../value/$value.class.js"
-import deepEqual from "/feature.javascript/deep-equal.helper.js"
 import { IValueChange } from "../../../_common/value-change.interface.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
+import { Signal } from "class-signals"
+import equal from "@wry/equality"
 
 /**
  * Reactive delta buffer for a `$Value<T>`.
@@ -133,7 +133,7 @@ export class DeltaBufferForValue {
     protected subscribeToSource() {
         const controller = new AbortController()
         this.#changesSubscription = controller
-        this.source.onChange.addSignalListener((change) => change.increment && this.bufferIncomingChange(change.increment), { signal: controller.signal })
+        this.source.onChange.subscribe((change) => change.increment && this.bufferIncomingChange(change.increment), { signal: controller.signal })
     }
 
     /**
@@ -145,13 +145,13 @@ export class DeltaBufferForValue {
      */
     protected bufferIncomingChange(state: IValueContainer<unknown>): void {
         // Skip if already pending and unchanged
-        if (this.#pendingChange && deepEqual(this.#pendingChange, state)) return
+        if (this.#pendingChange && equal(this.#pendingChange, state)) return
 
         // If value matches committed, clear pending
-        if (deepEqual(this.#committedState, state)) this.#pendingChange = undefined
+        if (equal(this.#committedState, state)) this.#pendingChange = undefined
         else this.#pendingChange = { value: state.value }
 
-        this.onChange.dispatchSignal()
+        this.onChange.activate()
     }
 
     // ################ PUBLIC API ################

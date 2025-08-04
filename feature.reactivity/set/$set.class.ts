@@ -1,12 +1,11 @@
+import { Signal } from "class-signals"
 import { IObservable } from "../_common/observable.interface.js"
 import { ISetChanges, TInputSetChanges } from "../_common/set-changes.interface.js"
 import { ReactivityDisabledError } from "../reactivity-disabled.error.js"
 import { ReadonlyAccessError } from "../readonly-access.error.js"
-import { difference } from "/feature.javascript/feature.set/set.prototype.difference.polyfill.js"
-import { intersection } from "/feature.javascript/feature.set/set.prototype.intersection.polyfill.js"
-import { union } from "/feature.javascript/feature.set/set.prototype.union.polyfill.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
-
+import { difference } from "#set/index.js"
+import { intersection } from "#set/index.js"
+import { union } from "#set/index.js"
 /**
  * Options used to initialize a reactive set.
  *
@@ -34,7 +33,7 @@ export interface ISetOptions<TValue> {
  * `$Set<T>` tracks mutations and notifies subscribers via `onChange` whenever the contents change.
  * All common `Set` operations are supported (`add`, `delete`, `clear`, etc.), but with reactive semantics.
  *
- * You can subscribe to changes using `.onChange.addSignalListener(...)`, which emits change objects
+ * You can subscribe to changes using `.onChange.subscribe(...)`, which emits change objects
  * describing the items that were added or removed.
  *
  * This class is not intended for direct use. Use the `$set()` helper function to create instances.
@@ -52,7 +51,7 @@ export interface ISetOptions<TValue> {
  * ```ts
  * const tags = $set<string>()
  *
- * tags.onChange.addSignalListener(({ increment }) => {
+ * tags.onChange.subscribe(({ increment }) => {
  *   if (increment) {
  *     console.log('Added tags:', [...increment])
  *   }
@@ -88,7 +87,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * ```ts
      * const $numbers = $set({ values: [1, 2, 3], label: "initial-numbers" })
      *
-     * $numbers.onChange.addSignalListener(() => {
+     * $numbers.onChange.subscribe(() => {
      *   console.log("Updated:", [...$numbers])
      * })
      * ```
@@ -118,7 +117,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      *
      * @example
      * ```ts
-     * $set.onSwitchReactivity.addSignalListener(() => {
+     * $set.onSwitchReactivity.subscribe(() => {
      *   console.log("Reactivity was toggled:", $set.isReactivityEnabled)
      * })
      * ```
@@ -151,7 +150,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
         this.#isReactivityEnabled = false
         this.#cancelTransaction()
         super.clear()
-        this.onSwitchReactivity.dispatchSignal()
+        this.onSwitchReactivity.activate()
     }
 
     /**
@@ -166,7 +165,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      */
     #enableReactivity() {
         this.#isReactivityEnabled = false
-        this.onSwitchReactivity.dispatchSignal()
+        this.onSwitchReactivity.activate()
     }
 
     /**
@@ -258,7 +257,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
         for (const value of decrement) super.delete(value)
 
         if (increment.size || decrement.size) {
-            this.onChange.dispatchSignal({
+            this.onChange.activate({
                 increment: increment.size ? increment : undefined,
                 decrement: decrement.size ? decrement : undefined,
             })
@@ -375,11 +374,11 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * Any mutation of the set — adding, deleting, or clearing items — triggers this signal.
      * Subscribers receive a payload of type `ISetChanges<TValue>`, describing what was added or removed.
      *
-     * Use `.addSignalListener(...)` to react to changes.
+     * Use `.subscribe(...)` to react to changes.
      *
      * @example
      * ```ts
-     * $users.onChange.addSignalListener(({ increment, decrement }) => {
+     * $users.onChange.subscribe(({ increment, decrement }) => {
      *   if (increment) console.log('Added:', [...increment])
      *   if (decrement) console.log('Removed:', [...decrement])
      * });
@@ -410,7 +409,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
         } else {
             if (!super.has(value)) {
                 super.add(value)
-                this.onChange.dispatchSignal({ increment: new Set([value]), decrement: undefined })
+                this.onChange.activate({ increment: new Set([value]), decrement: undefined })
             }
         }
 
@@ -447,7 +446,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
 
                 for (const value of increment) super.add(value)
 
-                if (increment.size) this.onChange.dispatchSignal({ increment, decrement: undefined })
+                if (increment.size) this.onChange.activate({ increment, decrement: undefined })
             } else {
                 const increment = new Set<TValue>()
 
@@ -457,7 +456,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
                     increment.add(value)
                 }
 
-                if (increment.size) this.onChange.dispatchSignal({ increment, decrement: undefined })
+                if (increment.size) this.onChange.activate({ increment, decrement: undefined })
             }
         }
     }
@@ -513,7 +512,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * ```ts
      * const $items = $set<string>()
      *
-     * $items.onChange.addSignalListener(() => {
+     * $items.onChange.subscribe(() => {
      *   console.log('Changed:', [...$items])
      * })
      *
@@ -566,7 +565,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
             this.#transactionDecrement.add(value)
         } else {
             // Пытаемся удалить - Если удаление было успешным — уведомляем подписчиков
-            if (super.delete(value)) this.onChange.dispatchSignal({ increment: undefined, decrement: new Set([value]) })
+            if (super.delete(value)) this.onChange.activate({ increment: undefined, decrement: new Set([value]) })
         }
 
         return true
@@ -603,13 +602,13 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
 
                 for (const value of decrement) super.delete(value)
 
-                if (decrement.size) this.onChange.dispatchSignal({ increment: undefined, decrement })
+                if (decrement.size) this.onChange.activate({ increment: undefined, decrement })
             } else {
                 const decrement = new Set<TValue>()
 
                 for (const value of values) if (super.delete(value)) decrement.add(value)
 
-                if (decrement.size) this.onChange.dispatchSignal({ increment: undefined, decrement })
+                if (decrement.size) this.onChange.activate({ increment: undefined, decrement })
             }
         }
     }
@@ -660,7 +659,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * ```ts
      * const $tags = $set<string>({ values: ["a", "b", "c"] })
      *
-     * $tags.onChange.addSignalListener(({ decrement }) => {
+     * $tags.onChange.subscribe(({ decrement }) => {
      *   console.log("Removed:", [...(decrement ?? [])])
      * })
      *
@@ -711,7 +710,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
         } else {
             const decrement = new Set(this)
             super.clear()
-            if (decrement.size) this.onChange.dispatchSignal({ increment: undefined, decrement })
+            if (decrement.size) this.onChange.activate({ increment: undefined, decrement })
         }
     }
 
@@ -744,7 +743,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * ```ts
      * const $tags = $set({ values: ["a", "b", "c"] })
      *
-     * $tags.onChange.addSignalListener(({ decrement }) => {
+     * $tags.onChange.subscribe(({ decrement }) => {
      *   console.log("Cleared:", [...(decrement ?? [])])
      * })
      *
@@ -791,7 +790,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
                 for (const value of decrement) super.delete(value)
 
                 if (increment.size || decrement.size) {
-                    this.onChange.dispatchSignal({
+                    this.onChange.activate({
                         decrement: decrement.size ? decrement : undefined,
                         increment: increment.size ? increment : undefined,
                     })
@@ -809,7 +808,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
                 for (const value of decrement) super.delete(value)
 
                 if (increment.size || decrement.size) {
-                    this.onChange.dispatchSignal({
+                    this.onChange.activate({
                         decrement: decrement.size ? decrement : undefined,
                         increment: increment.size ? increment : undefined,
                     })
@@ -849,7 +848,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
      * ```ts
      * const $ids = $set({ values: [1, 2, 3] })
      *
-     * $ids.onChange.addSignalListener(({ increment, decrement }) => {
+     * $ids.onChange.subscribe(({ increment, decrement }) => {
      *   console.log("Added:", [...(increment ?? [])])
      *   console.log("Removed:", [...(decrement ?? [])])
      * })
@@ -954,7 +953,7 @@ export class $Set<TValue> extends Set<TValue> implements IObservable<ISetChanges
  * ```ts
  * const merged = $mergeSets([$setA, $setB])
  *
- * merged.onChange.addSignalListener(...) // ✅ allowed
+ * merged.onChange.subscribe(...) // ✅ allowed
  * merged.add('x')                        // ❌ throws Error: is readonly!
  * ```
  *

@@ -1,6 +1,6 @@
+import { MaybePromise } from "#typescript/maybe-promise.type.js"
 import { TInputSetChanges } from "../../../_common/set-changes.interface.js"
 import { IValueChange } from "../../../_common/value-change.interface.js"
-import { MayBePromise } from "../../../../feature.typescript/may-be-promise.type.js"
 
 /**
  * A resolver function used to convert changes from a `$Set` dependency
@@ -17,4 +17,4 @@ import { MayBePromise } from "../../../../feature.typescript/may-be-promise.type
 export type TDependencyValueResolver<TContext extends Record<string, any> = Record<string, any>, TSource = any, TResult = any> = (
     context: TContext,
     changes: IValueChange<TSource>,
-) => MayBePromise<TInputSetChanges<TResult>>
+) => MaybePromise<TInputSetChanges<TResult>>

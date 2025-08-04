@@ -1,8 +1,8 @@
 import { $SetFromAny } from "./$set-from-any.class.js"
 import { $Set } from "../$set.class.js"
-import { difference } from "/feature.javascript/feature.set/set.prototype.difference.polyfill.js"
-import { MayBePromise } from "../../../feature.typescript/may-be-promise.type.js"
 import { ICombinationOptions } from "../_combination/$combination.class.js"
+import { difference } from "#set/index.js"
+import { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for `$ComplementViaSet<TItem, TRelation>`.
@@ -41,7 +41,7 @@ export interface IComplementViaSetOptions<TItem, TRelation> extends ICombination
      * @param relation The current set of relation keys.
      * @returns A set of values to exclude from the final result.
      */
-    resolver: (superset: Set<NoInfer<TItem>>, relation: Set<NoInfer<TRelation>>) => MayBePromise<Iterable<NoInfer<TItem>>>
+    resolver: (superset: Set<NoInfer<TItem>>, relation: Set<NoInfer<TRelation>>) => MaybePromise<Iterable<NoInfer<TItem>>>
 }
 
 /**
@@ -152,7 +152,7 @@ export class $ComplementViaSet<TItem, TRelation> extends $SetFromAny<TItem, { su
             },
         })
 
-        this.onSwitch.addSignalListener(() => {
+        this.onSwitch.subscribe(() => {
             if (!this.enabled) this.#complementWasExtracted = false
         })
     }

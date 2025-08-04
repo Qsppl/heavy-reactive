@@ -24,7 +24,7 @@ Wraps a single value in a reactive container:
 
 ```ts
 const count = $value({ value: 0 })
-count.onChange.addSignalListener(({ increment }) => {
+count.onChange.subscribe(({ increment }) => {
     console.log("New value:", increment?.value)
 })
 count.value = 1
@@ -177,7 +177,7 @@ All reactive entities expose signals like `.onChange` or `.onSwitch`. These sign
 
 ```ts
 const ctrl = new AbortController()
-$tags.onChange.addSignalListener(
+$tags.onChange.subscribe(
     ({ increment, decrement }) => {
         console.log("Updated:", increment, decrement)
     },

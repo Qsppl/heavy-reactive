@@ -118,12 +118,12 @@ Projection-based sets are fully reactive, readonly, and synchronized using inter
 All reactive entities emit events through signals.
 
 - Signals are exposed via `.onChange`, `.onSwitch`, etc.
-- Subscriptions are registered using `.addSignalListener(handler, { signal })`.
+- Subscriptions are registered using `.subscribe(handler, { signal })`.
 - Subscriptions can be cancelled via `AbortController`.
 
 ```ts
 const controller = new AbortController()
-$set.onChange.addSignalListener(
+$set.onChange.subscribe(
     ({ increment }) => {
         console.log(increment)
     },

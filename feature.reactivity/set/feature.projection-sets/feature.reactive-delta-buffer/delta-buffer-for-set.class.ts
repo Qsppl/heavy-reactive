@@ -1,9 +1,8 @@
 import { ISetChanges } from "../../../_common/set-changes.interface.js"
 import { TDependencySetResolver } from "../types/dependency-set-resolver.type.js"
-import { difference } from "/feature.javascript/feature.set/set.prototype.difference.polyfill.js"
-import { union } from "/feature.javascript/feature.set/set.prototype.union.polyfill.js"
 import { $Set } from "../../$set.class.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
+import { Signal } from "class-signals"
+import { difference, union } from "#set/index.js"
 
 /**
  * Reactive delta buffer for a `$Set<T>`.
@@ -136,7 +135,7 @@ export class DeltaBufferForSet<TSource extends $Set<any> = $Set<any>> {
     protected subscribeToSource() {
         const controller = new AbortController()
         this.#changesSubscription = controller
-        this.source.onChange.addSignalListener((changes) => this.bufferIncomingChange(changes), { signal: controller.signal })
+        this.source.onChange.subscribe((changes) => this.bufferIncomingChange(changes), { signal: controller.signal })
     }
 
     /**
@@ -169,7 +168,7 @@ export class DeltaBufferForSet<TSource extends $Set<any> = $Set<any>> {
             this.#pendingRemoved.add(value)
         }
 
-        this.onChange.dispatchSignal()
+        this.onChange.activate()
     }
 
     // ################ PUBLIC API ################

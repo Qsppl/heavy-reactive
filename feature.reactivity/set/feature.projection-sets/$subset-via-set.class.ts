@@ -1,7 +1,7 @@
 import { $Set } from "../$set.class.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { MayBePromise } from "../../../feature.typescript/may-be-promise.type.js"
 import { ICombinationOptions } from "../_combination/$combination.class.js"
+import { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for `$SubsetViaSet<TItem, TRelation>`.
@@ -37,7 +37,7 @@ export interface ISubsetViaSetOptions<TItem, TRelation> extends ICombinationOpti
      * @param relation The current relation keys to project.
      * @returns A set of values from the superset to include in the result.
      */
-    resolver: (superset: Set<TItem>, relation: Set<TRelation>) => MayBePromise<Iterable<TItem>>
+    resolver: (superset: Set<TItem>, relation: Set<TRelation>) => MaybePromise<Iterable<TItem>>
 }
 
 /**

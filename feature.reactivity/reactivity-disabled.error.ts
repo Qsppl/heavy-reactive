@@ -4,8 +4,8 @@
  * until re-enabled.
  */
 export class ReactivityDisabledError extends Error {
-  constructor(message = 'Reactivity is disabled for this value or collection.') {
-    super(message)
-    this.name = 'ReactivityDisabledError'
-  }
+    constructor(message = "Reactivity is disabled for this value or collection.") {
+        super(message)
+        this.name = "ReactivityDisabledError"
+    }
 }

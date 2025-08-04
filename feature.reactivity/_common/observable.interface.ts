@@ -1,5 +1,5 @@
+import { Signal } from "class-signals"
 import { IIncrementalChanges } from "./changes.interface.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
 
 /**
  * Contract for reactive data sources that can emit change notifications.
@@ -16,7 +16,7 @@ export interface IObservable<TChanges = IIncrementalChanges> {
      * The emitted value must conform to the generic type `TChanges`,
      * and is typically an object describing the difference (e.g. increment/decrement).
      *
-     * Use `.addSignalListener(...)` to subscribe.
+     * Use `.subscribe(...)` to subscribe.
      */
     onChange: Signal<TChanges>
 }

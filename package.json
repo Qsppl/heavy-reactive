@@ -1,28 +1,51 @@
 {
-  "name": "reactive-state-library",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/Qsppl/Reactive-State-Library#readme",
-  "bugs": {
-    "url": "https://github.com/Qsppl/Reactive-State-Library/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Qsppl/Reactive-State-Library.git"
-  },
-  "license": "MIT",
-  "author": "Tomoko",
-  "main": "feature.reactivity/reactive.module.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "npm": "^11.2",
-    "node": "^23.9"
-  },
-  "devDependencies": {
-    "prettier": "^3.5.1",
-    "typescript": "^5.8.2"
-  }
+    "name": "reactive-state",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "Lightweight, composable primitives for building reactive data flows in TypeScript applications",
+    "homepage": "https://github.com/Qsppl/reactive-state#readme",
+    "bugs": {
+        "url": "https://github.com/Qsppl/reactive-state/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Qsppl/reactive-state.git"
+    },
+    "keywords": [
+        "reactive",
+        "state",
+        "typescript",
+        "reactivity",
+        "state-management",
+        "signals",
+        "observables"
+    ],
+    "license": "MIT",
+    "author": "Tomoko",
+    "main": "feature.reactivity/reactivity.module.ts",
+    "imports": {
+        "#set/*": "feature.set/*",
+        "#typescript/*": "feature.typescript/*"
+    },
+    "scripts": {
+        "prepare": "husky || true",
+        "prettier:write": "prettier --config .prettierrc --log-level warn --write .",
+        "prettier:check": "prettier --config .prettierrc --log-level warn --check .",
+        "typescript:check": "tsc"
+    },
+    "engines": {
+        "npm": "^11.2",
+        "node": "^23.9"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^19.8.1",
+        "@commitlint/config-conventional": "^19.8.1",
+        "husky": "^9.1.7",
+        "prettier": "^3.6.2",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "@wry/equality": "^0.5.7",
+        "class-signals": "^2.0.0"
+    }
 }

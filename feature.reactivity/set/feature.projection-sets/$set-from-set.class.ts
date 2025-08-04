@@ -1,8 +1,8 @@
 import { $Set } from "../$set.class.js"
 import { ISetChanges } from "../../_common/set-changes.interface.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { MayBePromise } from "../../../feature.typescript/may-be-promise.type.js"
 import { ICombinationOptions } from "../_combination/$combination.class.js"
+import { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for creating a `$SetFromSet<TTarget, TSource>` instance.
@@ -37,7 +37,7 @@ export interface ISetFromSetOptions<TTarget, TSource> extends ICombinationOption
      * The resolver is called for each incremental change (`increment` / `decrement`)
      * and must return a valid `ISetChanges<TTarget>` object.
      */
-    resolver: (changes: ISetChanges<TSource>) => MayBePromise<ISetChanges<TTarget>>
+    resolver: (changes: ISetChanges<TSource>) => MaybePromise<ISetChanges<TTarget>>
 }
 
 /**

@@ -2,8 +2,8 @@ import { IValueContainer } from "../../_common/value-container.interface.js"
 import { $Value } from "../../value/$value.class.js"
 import { $Set } from "../$set.class.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { MayBePromise } from "../../../feature.typescript/may-be-promise.type.js"
 import { ICombinationOptions } from "../_combination/$combination.class.js"
+import { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for `$SubsetViaVal<TItem, TRelation>`.
@@ -36,7 +36,7 @@ export interface ISubsetViaValOptions<TItem, TRelation> extends ICombinationOpti
      * @param relation A reactive container holding the current relation key.
      * @returns A set of values from the superset to include in the result.
      */
-    resolver: (superset: Set<NoInfer<TItem>>, relation: IValueContainer<NoInfer<TRelation>>) => MayBePromise<Iterable<NoInfer<TItem>>>
+    resolver: (superset: Set<NoInfer<TItem>>, relation: IValueContainer<NoInfer<TRelation>>) => MaybePromise<Iterable<NoInfer<TItem>>>
 }
 
 /**

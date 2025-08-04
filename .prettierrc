@@ -1,7 +1,9 @@
 {
     "experimentalTernaries": true,
+    "printWidth": 160,
     "semi": false,
     "singleQuote": false,
     "bracketSameLine": false,
+    "endOfLine": "lf",
     "quoteProps": "consistent"
 }

@@ -1,5 +1,5 @@
+import { Signal } from "class-signals"
 import { $Set } from "../$set.class.js"
-import { Signal } from "/feature.javascript/feature.signals/signal.class.js"
 
 /**
  * Configuration options for initializing a `$Combination<T>`.
@@ -49,7 +49,7 @@ export abstract class $Combination<TValue> extends $Set<TValue> {
      *
      * @example
      * ```ts
-     * $combination.onSwitch.addSignalListener(() => {
+     * $combination.onSwitch.subscribe(() => {
      *   if ($combination.enabled) console.log("Activated")
      *   else console.log("Deactivated")
      * })
@@ -146,7 +146,7 @@ export abstract class $Combination<TValue> extends $Set<TValue> {
      * This method emits the `onSwitch` signal.
      */
     protected onActivated() {
-        this.onSwitch.dispatchSignal()
+        this.onSwitch.activate()
     }
 
     /**
@@ -172,7 +172,7 @@ export abstract class $Combination<TValue> extends $Set<TValue> {
      * Subclasses may override to clean up derived state or signal listeners.
      */
     protected onDeactivated() {
-        this.onSwitch.dispatchSignal()
+        this.onSwitch.activate()
         this.cancelTransaction()
         this.clear()
     }

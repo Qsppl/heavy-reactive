@@ -147,7 +147,7 @@ export abstract class $VariadicCombination<TValue> extends $Combination<TValue> 
     protected trackSubsetSwitchState(subset: $Combination<TValue>) {
         const controller = new AbortController()
         this.cascadeControllers.set(subset, controller)
-        subset.onSwitch.addSignalListener(() => (subset.enabled ? this.includeSubsetInCalc(subset) : this.excludeSubsetFromCalc(subset)))
+        subset.onSwitch.subscribe(() => (subset.enabled ? this.includeSubsetInCalc(subset) : this.excludeSubsetFromCalc(subset)))
     }
 
     /**
@@ -222,7 +222,7 @@ export abstract class $VariadicCombination<TValue> extends $Combination<TValue> 
     protected listenSubsetChanges(subset: $Set<TValue>) {
         const controller = new AbortController()
         this.subsetChangeControllers.set(subset, controller)
-        subset.onChange.addSignalListener((changes) => this.recalculateOnSubsetChange(changes), { signal: controller.signal })
+        subset.onChange.subscribe((changes) => this.recalculateOnSubsetChange(changes), { signal: controller.signal })
     }
 
     /**

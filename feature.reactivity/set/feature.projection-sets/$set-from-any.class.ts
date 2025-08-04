@@ -265,10 +265,10 @@ export class $SetFromAny<TResult, TDependencies extends TDependenciesMap> extend
         this.changeSubscriptions.set(buffer, controller)
 
         if (buffer instanceof DeltaBufferForSet)
-            buffer.onChange.addSignalListener(() => buffer.getBufferedChanges() && this.synchronize(), { signal: controller.signal })
+            buffer.onChange.subscribe(() => buffer.getBufferedChanges() && this.synchronize(), { signal: controller.signal })
 
         if (buffer instanceof DeltaBufferForValue)
-            buffer.onChange.addSignalListener(() => buffer.getBufferedChange() && this.synchronize(), { signal: controller.signal })
+            buffer.onChange.subscribe(() => buffer.getBufferedChange() && this.synchronize(), { signal: controller.signal })
     }
 
     /** Whether a sync worker is currently running. */

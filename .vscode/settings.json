@@ -1,40 +1,27 @@
 {
-    // for native browser imports
-    "javascript.preferences.importModuleSpecifierEnding": "js",
-    // for native browser imports
-    "typescript.preferences.importModuleSpecifierEnding": "js",
-    "typescript.tsdk": "node_modules/typescript/lib",
-    // windows task manager fix
-    "terminal.integrated.automationProfile.windows": {
-        "path": "C:/Program Files/Git/bin/bash.exe"
-    },
-    "task.allowAutomaticTasks": "on",
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.expand": false,
-    "explorer.fileNesting.patterns": {
-        "*.component.ts": "${capture}.component.*",
-        "*.styles.css": "${capture}.styles.*",
-    },
-    "[html]": {
+    "files.eol": "\n",
+    "javascript.format.semicolons": "remove",
+    "typescript.format.semicolons": "remove",
+    "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[css]": {
+    "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[js]": {
+    "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "editor.formatOnSave": true,
-    "files.eol": "\n",
-    "npm.exclude": "**/@(vendor|node_modules|assets|modules|web|views)/**",
-    "gitlab.duoChat.enabled": false,
-    "gitlab.duoCodeSuggestions.enabled": false,
-    "intelephense.maxMemory": 4096,
-    "intelephense.completion.triggerParameterHints": true, // Enable parameter hints
-    "intelephense.files.exclude": [ // Exclude large/unnecessary folders
-        "**/node_modules/**",
-    ]
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.semi": false,
+    "task.allowAutomaticTasks": "on",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    // windows task manager fix
+    "terminal.integrated.automationProfile.windows": {
+        "path": "C:/Windows/System32/cmd.exe"
+    }
 }

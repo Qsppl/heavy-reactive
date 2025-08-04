@@ -151,7 +151,7 @@ export class $Difference<TValue> extends $VariadicCombination<TValue> {
      * @param parent The superset to track for reactivity changes.
      */
     protected watchParentReactivity(parent: $Combination<TValue>) {
-        parent.onSwitch.addSignalListener(() => {
+        parent.onSwitch.subscribe(() => {
             if (this.isLocallyEnabled && parent.enabled) this.onActivated()
             if (this.isLocallyEnabled && !parent.enabled) this.onDeactivated()
         })
@@ -209,7 +209,7 @@ export class $Difference<TValue> extends $VariadicCombination<TValue> {
     protected listenSupersetChanges() {
         const controller = new AbortController()
         this.subsetChangeControllers.set(this.superset, controller)
-        this.superset.onChange.addSignalListener((changes) => this.handleChangesOfSuperset(changes), { signal: controller.signal })
+        this.superset.onChange.subscribe((changes) => this.handleChangesOfSuperset(changes), { signal: controller.signal })
     }
 
     /**
