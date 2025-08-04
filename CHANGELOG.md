@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Qsppl/heavy-reactive/compare/v1.1.0...v1.1.1) (2025-08-04)
+
+
+### Miscellaneous Chores
+
+* update package info ([e9cda1d](https://github.com/Qsppl/heavy-reactive/commit/e9cda1dbbaa851e7dd7972062358891742cf01b7))
+
 ## 1.1.0 (2025-08-04)
 
 

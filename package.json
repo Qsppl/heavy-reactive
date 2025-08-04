@@ -2,7 +2,7 @@
     "name": "heavy-reactive",
     "description": "Reactive state management for heavy computations, distributed tasks, and long-running data processing",
     "type": "module",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "homepage": "https://github.com/Qsppl/heavy-reactive#readme",
     "bugs": {
         "url": "https://github.com/Qsppl/heavy-reactive/issues"
