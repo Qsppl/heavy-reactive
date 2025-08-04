@@ -23,6 +23,7 @@
     "license": "MIT",
     "author": "Tomoko",
     "main": "feature.reactivity/reactivity.module.ts",
+    "types": "feature.reactivity/reactivity.module.ts",
     "exports": {
         ".": {
             "types": "./feature.reactivity/reactivity.module.ts",
