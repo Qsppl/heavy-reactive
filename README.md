@@ -1,6 +1,8 @@
-# Reactive State Library
+# Heavy Reactive
 
-This library provides lightweight, composable primitives for building reactive data flows in TypeScript applications. It is designed to be explicit, subscription-based, and interoperable with existing architectures — without introducing virtual DOMs, schedulers, or global state systems.
+Lightweight TypeScript primitives for reactive programming with heavy computations, optimized to handle hundreds of thousands of objects in real-time streams. The library provides explicit control over complex data flows through subscription-based patterns while avoiding magic and overhead. It supports cancellation, lazy evaluation, and efficient set operations at scale without garbage collection pressure. Designed for seamless integration in any architecture, it works without global state or framework dependencies.
+
+The core maintains constant-time operations even with massive datasets, processing only what changes through granular differential updates. You get precise memory control and zero-implicit reactivity waterfalls while working with plain JavaScript objects.
 
 ## 🚀 Getting Started
 
@@ -173,7 +175,8 @@ This is useful for optimizing performance:
 
 ## 🔁 Subscriptions and Signals
 
-All reactive entities expose signals like `.onChange` or `.onSwitch`. These signals emit typed payloads and support cancellation:
+All reactive entities expose signals like `.onChange` or `.onSwitch`
+hese signals emit typed payloads and support cancellation:
 
 ```ts
 const ctrl = new AbortController()

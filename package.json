@@ -1,24 +1,24 @@
 {
-    "name": "reactive-state",
+    "name": "heavy-reactive",
+    "description": "Reactive state management for heavy computations, distributed tasks, and long-running data processing",
     "type": "module",
     "version": "1.0.0",
-    "description": "Lightweight, composable primitives for building reactive data flows in TypeScript applications",
-    "homepage": "https://github.com/Qsppl/reactive-state#readme",
+    "homepage": "https://github.com/Qsppl/heavy-reactive#readme",
     "bugs": {
-        "url": "https://github.com/Qsppl/reactive-state/issues"
+        "url": "https://github.com/Qsppl/heavy-reactive/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Qsppl/reactive-state.git"
+        "url": "git+https://github.com/Qsppl/heavy-reactive.git"
     },
     "keywords": [
         "reactive",
-        "state",
-        "typescript",
-        "reactivity",
-        "state-management",
-        "signals",
-        "observables"
+        "heavy computations",
+        "data processing",
+        "performance",
+        "optimization",
+        "task scheduling",
+        "signals"
     ],
     "license": "MIT",
     "author": "Tomoko",
