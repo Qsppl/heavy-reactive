@@ -1,5 +1,4 @@
 [![npm version](https://img.shields.io/npm/v/heavy-reactive.svg?style=flat&logo=npm&label=heavy-reactive)](https://www.npmjs.com/package/heavy-reactive)
-[![types](https://img.shields.io/npm/types/heavy-reactive?style=flat&logo=typescript&label=)](https://www.typescriptlang.org/)
 [![license](https://img.shields.io/npm/l/heavy-reactive?style=flat)](https://github.com/your-username/heavy-reactive/blob/main/LICENSE)
 
 # Heavy Reactive
