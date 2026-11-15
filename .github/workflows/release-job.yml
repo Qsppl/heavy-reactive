@@ -21,8 +21,8 @@ jobs:
         with:
           release-type: node
 
-      - # these if statements ensure that a publication only occurs when a new release is created:
-        if: ${{ steps.release.outputs.release_created }}
+      # these if statements ensure that a publication only occurs when a new release is created:
+      - if: ${{ steps.release.outputs.release_created }}
         uses: actions/checkout@v4
 
       - name: Tag Major/Minor Versions
@@ -31,31 +31,30 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git remote add gh-token "https://${{ secrets.GITHUB_TOKEN }}@github.com/googleapis/release-please-action.git"
-          git tag -d v${{ steps.release.outputs.major }} || true
-          git tag -d v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
-          git push origin :v${{ steps.release.outputs.major }} || true
-          git push origin :v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
-          git tag -a v${{ steps.release.outputs.major }} -m "Release v${{ steps.release.outputs.major }}"
-          git tag -a v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} -m "Release v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}"
-          git push origin v${{ steps.release.outputs.major }}
-          git push origin v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}
+          MAJOR=v${{ steps.release.outputs.major }}
+          MINOR=v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}
+          git tag -fa "$MAJOR" -m "Release $MAJOR"
+          git tag -fa "$MINOR" -m "Release $MINOR"
+          git push -f origin "$MAJOR" "$MINOR"
 
-      - name: Publish To NPM
+      - name: Setup Node
         # these if statements ensure that a publication only occurs when a new release is created:
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Publish To NPM
+          node-version: 24
+
+      - name: Update npm
         # these if statements ensure that a publication only occurs when a new release is created:
         if: ${{ steps.release.outputs.release_created }}
-        # Ensure npm 11.5.1 or later is installed
-        run: npm install -g npm@latest
-      - name: Publish To NPM
+        # Ensure npm 11.5.1 is installed
+        run: npm install -g npm@11
+
+      - name: Install dependencies
         # these if statements ensure that a publication only occurs when a new release is created:
         if: ${{ steps.release.outputs.release_created }}
         run: npm ci
+
       - name: Publish To NPM
         # these if statements ensure that a publication only occurs when a new release is created:
         if: ${{ steps.release.outputs.release_created }}
