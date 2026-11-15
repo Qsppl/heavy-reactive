@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/Qsppl/heavy-reactive/compare/v1.2.0...v1.2.1) (2026-11-15)
+
+
+### Bug Fixes
+
+* restore npm publishing in release workflow ([#6](https://github.com/Qsppl/heavy-reactive/issues/6)) ([67eeb91](https://github.com/Qsppl/heavy-reactive/commit/67eeb9170c43c1d25fc01ed77203940f75ced4eb))
+
 ## [1.2.0](https://github.com/Qsppl/heavy-reactive/compare/v1.1.2...v1.2.0) (2026-11-15)
 
 
