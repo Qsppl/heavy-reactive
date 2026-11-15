@@ -21,7 +21,7 @@
         "signals"
     ],
     "license": "MIT",
-    "author": "Tomoko",
+    "author": "Artem Shumailov",
     "main": "feature.reactivity/reactivity.module.ts",
     "types": "feature.reactivity/reactivity.module.ts",
     "exports": {

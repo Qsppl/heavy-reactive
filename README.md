@@ -1,5 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/heavy-reactive.svg?style=flat&logo=npm&label=heavy-reactive)](https://www.npmjs.com/package/heavy-reactive)
-[![license](https://img.shields.io/npm/l/heavy-reactive?style=flat)](https://github.com/your-username/heavy-reactive/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/heavy-reactive?style=flat)](https://github.com/Qsppl/heavy-reactive/blob/main/LICENSE)
 
 # Heavy Reactive
 
@@ -7,19 +7,23 @@ Lightweight TypeScript primitives for reactive programming with heavy computatio
 
 The core maintains constant-time operations even with massive datasets, processing only what changes through granular differential updates. You get precise memory control and zero-implicit reactivity waterfalls while working with plain JavaScript objects.
 
+The library grew out of a production map that renders 200,000+ geo-objects in real time, where filters, layers and selections had to update without re-scanning the whole dataset. Signals are powered by [class-signals](https://github.com/Qsppl/class-signals).
+
 ## 🚀 Getting Started
 
 Install the library:
 
 ```bash
-npm install @your-scope/reactive-state
+npm install heavy-reactive
 ```
 
 Import the reactive primitives:
 
 ```ts
-import { $value, $set, $intersectionSets, $unionSets, $differenceSets } from "@your-scope/reactive-state"
+import { $value, $set, $intersectionSets, $unionSets, $differenceSets } from "heavy-reactive"
 ```
+
+The package ships as TypeScript source. Use it with a TypeScript-aware bundler such as Vite or esbuild, or with Bun; plain Node.js does not load `.ts` files from `node_modules`.
 
 ## ✨ Core Concepts
 
@@ -89,7 +93,8 @@ Factory functions provide named creation helpers for all key reactive types.
 - `$subsetViaSet(...)` – Build a projected subset using a set of relation keys in a `$Set`
 - `$complementViaVal(...)` – Build a complement set by excluding a projection from a single relation value
 - `$complementViaSet(...)` – Build a complement set by excluding projected values from multiple relation keys
-- `$setFromSet(...)` – Build a projected set that maps source deltas into custom results
+- `$deriveSetFromSet(...)` – Build a derived set that maps source deltas into custom results
+- `$deriveSetFromAny<T>()(...)` – Build a derived set from any mix of `$Set` and `$Value` dependencies (the low-level primitive behind the factories above)
 
 Each factory returns a `$Combination<T>` instance.
 
@@ -178,8 +183,8 @@ This is useful for optimizing performance:
 
 ## 🔁 Subscriptions and Signals
 
-All reactive entities expose signals like `.onChange` or `.onSwitch`
-hese signals emit typed payloads and support cancellation:
+All reactive entities expose signals like `.onChange` or `.onSwitch`.
+These signals emit typed payloads and support cancellation:
 
 ```ts
 const ctrl = new AbortController()
@@ -193,7 +198,7 @@ $tags.onChange.subscribe(
 
 ## 📚 Learn More
 
-- See [GLOSSARY.md](./REACTIVE-GLOSSARY.md) for terminology
+- See [GLOSSARY.md](./GLOSSARY.md) for terminology
 - See [CONTRIBUTING.md](./CONTRIBUTING.md) for internal architecture and projection mechanics
 
 ## 🛠 License
