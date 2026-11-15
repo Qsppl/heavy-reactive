@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/Qsppl/heavy-reactive/compare/v1.1.2...v1.2.0) (2026-11-15)
+
+
+### Features
+
+* development workflow guide ([d6e5f29](https://github.com/Qsppl/heavy-reactive/commit/d6e5f295a99696cbe17aa7236ec5a6e8f6de8e63))
+
+
+### Bug Fixes
+
+* correct package name and install instructions in README ([7ebd9c2](https://github.com/Qsppl/heavy-reactive/commit/7ebd9c279f135a08edd9d113f6558c3ee6da7ea6))
+
 ## [1.1.2](https://github.com/Qsppl/heavy-reactive/compare/v1.1.1...v1.1.2) (2025-08-04)
 
 
