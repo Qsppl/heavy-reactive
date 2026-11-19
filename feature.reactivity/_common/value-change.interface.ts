@@ -1,5 +1,5 @@
-import { IIncrementalChanges, IOverwriteChange } from "./changes.interface.js"
-import { IValueContainer } from "./value-container.interface.js"
+import type { IIncrementalChanges, IOverwriteChange } from "./changes.interface.js"
+import type { IValueContainer } from "./value-container.interface.js"
 
 /**
  * Describes a differential change in a reactive `$Value<T>`.

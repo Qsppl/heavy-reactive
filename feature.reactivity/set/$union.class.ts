@@ -1,4 +1,4 @@
-import { ISetChanges } from "../_common/set-changes.interface.js"
+import type { ISetChanges } from "../_common/set-changes.interface.js"
 import { $VariadicCombination } from "./_combination/$variadic-combination.class.js"
 
 /**

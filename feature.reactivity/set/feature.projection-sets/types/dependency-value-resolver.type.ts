@@ -1,6 +1,6 @@
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
-import { TInputSetChanges } from "../../../_common/set-changes.interface.js"
-import { IValueChange } from "../../../_common/value-change.interface.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { TInputSetChanges } from "../../../_common/set-changes.interface.js"
+import type { IValueChange } from "../../../_common/value-change.interface.js"
 
 /**
  * A resolver function used to convert changes from a `$Set` dependency

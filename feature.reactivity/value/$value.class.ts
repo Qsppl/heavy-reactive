@@ -1,7 +1,7 @@
 import { Signal } from "class-signals"
-import { IObservable } from "../_common/observable.interface.js"
-import { IValueChange } from "../_common/value-change.interface.js"
-import { IValueContainer } from "../_common/value-container.interface.js"
+import type { IObservable } from "../_common/observable.interface.js"
+import type { IValueChange } from "../_common/value-change.interface.js"
+import type { IValueContainer } from "../_common/value-container.interface.js"
 import equal from "@wry/equality"
 
 /**

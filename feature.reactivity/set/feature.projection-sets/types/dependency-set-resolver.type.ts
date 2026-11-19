@@ -1,5 +1,5 @@
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
-import { ISetChanges, TInputSetChanges } from "../../../_common/set-changes.interface.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { ISetChanges, TInputSetChanges } from "../../../_common/set-changes.interface.js"
 
 /**
  * A resolver function used to convert changes from a `$Set` dependency

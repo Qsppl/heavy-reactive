@@ -1,7 +1,7 @@
-import { TDependencyValueResolver } from "../types/dependency-value-resolver.type.js"
-import { IValueContainer } from "../../../_common/value-container.interface.js"
+import type { TDependencyValueResolver } from "../types/dependency-value-resolver.type.js"
+import type { IValueContainer } from "../../../_common/value-container.interface.js"
 import { $Value } from "../../../value/$value.class.js"
-import { IValueChange } from "../../../_common/value-change.interface.js"
+import type { IValueChange } from "../../../_common/value-change.interface.js"
 import { Signal } from "class-signals"
 import equal from "@wry/equality"
 
