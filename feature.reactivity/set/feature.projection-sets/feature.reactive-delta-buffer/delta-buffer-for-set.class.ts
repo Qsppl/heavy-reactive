@@ -1,5 +1,5 @@
-import { ISetChanges } from "../../../_common/set-changes.interface.js"
-import { TDependencySetResolver } from "../types/dependency-set-resolver.type.js"
+import type { ISetChanges } from "../../../_common/set-changes.interface.js"
+import type { TDependencySetResolver } from "../types/dependency-set-resolver.type.js"
 import { $Set } from "../../$set.class.js"
 import { Signal } from "class-signals"
 import { difference, union } from "#set/index.js"

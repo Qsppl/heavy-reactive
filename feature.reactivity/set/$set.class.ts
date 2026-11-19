@@ -1,6 +1,6 @@
 import { Signal } from "class-signals"
-import { IObservable } from "../_common/observable.interface.js"
-import { ISetChanges, TInputSetChanges } from "../_common/set-changes.interface.js"
+import type { IObservable } from "../_common/observable.interface.js"
+import type { ISetChanges, TInputSetChanges } from "../_common/set-changes.interface.js"
 import { ReactivityDisabledError } from "../reactivity-disabled.error.js"
 import { ReadonlyAccessError } from "../readonly-access.error.js"
 import { difference } from "#set/index.js"

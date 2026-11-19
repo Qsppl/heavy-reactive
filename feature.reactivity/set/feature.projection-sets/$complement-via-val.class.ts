@@ -1,9 +1,9 @@
-import { IValueContainer } from "../../_common/value-container.interface.js"
+import type { IValueContainer } from "../../_common/value-container.interface.js"
 import { $Value } from "../../value/$value.class.js"
 import { $Set } from "../$set.class.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { ICombinationOptions } from "../_combination/$combination.class.js"
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { ICombinationOptions } from "../_combination/$combination.class.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
 import { difference } from "#set/index.js"
 
 /**

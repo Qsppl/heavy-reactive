@@ -1,7 +1,7 @@
 import { $Set } from "../$set.class.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { ICombinationOptions } from "../_combination/$combination.class.js"
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { ICombinationOptions } from "../_combination/$combination.class.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for `$SubsetViaSet<TItem, TRelation>`.

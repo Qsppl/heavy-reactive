@@ -1,6 +1,6 @@
 import { $ComplementViaSet } from "./set/feature.projection-sets/$complement-via-set.class.js"
 import { $ComplementViaVal } from "./set/feature.projection-sets/$complement-via-val.class.js"
-import { $SetFromAny, TDependenciesMap } from "./set/feature.projection-sets/$set-from-any.class.js"
+import { $SetFromAny, type TDependenciesMap } from "./set/feature.projection-sets/$set-from-any.class.js"
 import { $SetFromSet } from "./set/feature.projection-sets/$set-from-set.class.js"
 import { $Set } from "./set/$set.class.js"
 import { $Combination } from "./set/_combination/$combination.class.js"

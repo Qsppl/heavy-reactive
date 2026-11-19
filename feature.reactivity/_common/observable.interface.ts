@@ -1,5 +1,5 @@
 import { Signal } from "class-signals"
-import { IIncrementalChanges } from "./changes.interface.js"
+import type { IIncrementalChanges } from "./changes.interface.js"
 
 /**
  * Contract for reactive data sources that can emit change notifications.

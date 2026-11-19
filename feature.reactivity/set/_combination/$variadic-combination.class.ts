@@ -1,5 +1,5 @@
 import { $Set } from "../$set.class.js"
-import { ISetChanges } from "../../_common/set-changes.interface.js"
+import type { ISetChanges } from "../../_common/set-changes.interface.js"
 import { $Combination } from "./$combination.class.js"
 
 /**

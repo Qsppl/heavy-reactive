@@ -53,6 +53,6 @@
     },
     "dependencies": {
         "@wry/equality": "^0.5.7",
-        "class-signals": "^2.0.0"
+        "class-signals": "^2.1.2"
     }
 }

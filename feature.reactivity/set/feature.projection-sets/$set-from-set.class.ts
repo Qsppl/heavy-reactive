@@ -1,8 +1,8 @@
 import { $Set } from "../$set.class.js"
-import { ISetChanges } from "../../_common/set-changes.interface.js"
+import type { ISetChanges } from "../../_common/set-changes.interface.js"
 import { $SetFromAny } from "./$set-from-any.class.js"
-import { ICombinationOptions } from "../_combination/$combination.class.js"
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { ICombinationOptions } from "../_combination/$combination.class.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for creating a `$SetFromSet<TTarget, TSource>` instance.

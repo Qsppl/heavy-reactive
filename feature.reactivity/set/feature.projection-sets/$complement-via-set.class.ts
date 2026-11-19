@@ -1,8 +1,8 @@
 import { $SetFromAny } from "./$set-from-any.class.js"
 import { $Set } from "../$set.class.js"
-import { ICombinationOptions } from "../_combination/$combination.class.js"
+import type { ICombinationOptions } from "../_combination/$combination.class.js"
 import { difference } from "#set/index.js"
-import { MaybePromise } from "#typescript/maybe-promise.type.js"
+import type { MaybePromise } from "#typescript/maybe-promise.type.js"
 
 /**
  * Configuration options for `$ComplementViaSet<TItem, TRelation>`.

@@ -1,4 +1,4 @@
-import { $Combination, ICombinationOptions } from "../_combination/$combination.class.js"
+import { $Combination, type ICombinationOptions } from "../_combination/$combination.class.js"
 import type { TDependencySetResolver } from "./types/dependency-set-resolver.type.js"
 import type { TDependencyValueResolver } from "./types/dependency-value-resolver.type.js"
 import { $Value } from "../../value/$value.class.js"

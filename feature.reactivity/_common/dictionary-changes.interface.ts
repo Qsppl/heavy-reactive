@@ -1,4 +1,4 @@
-import { IIncrementalChanges, IOverwriteChange } from "./changes.interface.js"
+import type { IIncrementalChanges, IOverwriteChange } from "./changes.interface.js"
 
 /**
  * Describes a differential change in a reactive dictionary-like structure.
