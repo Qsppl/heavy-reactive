@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/Qsppl/heavy-reactive/compare/v1.2.1...v1.2.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* support consumers with verbatimModuleSyntax enabled ([#8](https://github.com/Qsppl/heavy-reactive/issues/8)) ([6f8d43f](https://github.com/Qsppl/heavy-reactive/commit/6f8d43f17e7b2aa665155c100f01fbc2ce0ceb64))
+
 ## [1.2.1](https://github.com/Qsppl/heavy-reactive/compare/v1.2.0...v1.2.1) (2026-11-15)
 
 
