@@ -1,18 +1,8 @@
 #!/bin/sh
-
-GIT_BASH_PATH="/c/Program Files/Git/usr/bin"
-NPM_PATH="/c/Program Files/nodejs/npm.cmd"
-
-# Temporarily add Git Bash to PATH if it's not already in the PATH
-if ! command -v bash &> /dev/null; then
-    export PATH="$PATH:$GIT_BASH_PATH"
-fi
-
-# Direct run NPM if it's not in the PATH
-if [ -f "$NPM_PATH" ]; then
-    "$NPM_PATH" run prettier:write -- --no-color
-else
-    npm run prettier:write -- --no-color
-fi
-
-git add -u
+# Format staged files with Prettier and re-stage them.
+# Binaries are called directly (husky adds node_modules/.bin to PATH):
+# `npm run` kills the hook shell under GitHub Desktop's bundled Git.
+git diff --cached --name-only --diff-filter=ACMR -z \
+    | xargs -0 -r prettier --config .prettierrc --log-level warn --ignore-unknown --no-color --write --
+git diff --cached --name-only --diff-filter=ACMR -z \
+    | xargs -0 -r git add --
